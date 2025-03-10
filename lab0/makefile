@@ -1,7 +1,7 @@
 CC = gcc
 TARGET = countdown
 SRC = countdown.c
-CFLAGS=-c -Wall
+CFLAGS=-g -Wall
 
 all: $(TARGET)
 

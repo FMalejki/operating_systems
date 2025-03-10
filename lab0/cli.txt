@@ -1,0 +1,82 @@
+malejki@Malejki:~/operating_systems$ gdb countdown
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+--Type <RET> for more, q to quit, c to continue without paging--c
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+countdown: No such file or directory.
+(gdb) pwd
+Working directory /home/malejki/operating_systems.
+(gdb) cd lab0
+Working directory /home/malejki/operating_systems/lab0.
+(gdb) file countdown
+Reading symbols from countdown...
+(gdb) run
+Starting program: /home/malejki/operating_systems/lab0/countdown 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+[Inferior 1 (process 11653) exited normally]
+(gdb) break 5
+Breakpoint 1 at 0x55555555515e: file countdown.c, line 5.
+(gdb) run
+Starting program: /home/malejki/operating_systems/lab0/countdown 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 1, main () at countdown.c:5
+5               printf("%d\n", i);
+(gdb) print i
+$1 = 10
+(gdb) continue
+Continuing.
+10
+
+Breakpoint 1, main () at countdown.c:5
+5               printf("%d\n", i);
+(gdb) print i
+$2 = 9
+(gdb) continue
+Continuing.
+9
+
+Breakpoint 1, main () at countdown.c:5
+5               printf("%d\n", i);
+(gdb) print i
+$3 = 8
+(gdb) delete 1
+(gdb) continue
+Continuing.
+8
+7
+6
+5
+4
+3
+2
+1
+0
+[Inferior 1 (process 12935) exited normally]
+(gdb) quit
+malejki@Malejki:~/operating_systems$
