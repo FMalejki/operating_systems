@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "libcollatz"
+#include "collatz.h"
 #include <stdlib.h>
 
 
@@ -9,7 +9,7 @@ int main(){
     int max_iter = 30;
     int steps[max_iter];
     for(int i = 0; i < input_size; i++){
-        int result = test_collatz_convergence(input[i], max_iter, steps);
+        int result = test_collatz_conjecture(input[i], max_iter, steps);
         if( result != 0){
             printf("Input: %d\n", input[i]);
             printf("Sequence: ");
