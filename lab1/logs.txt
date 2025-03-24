@@ -1,0 +1,91 @@
+filipmalejki@dhcp-9-175-159-218 lab1 % make 
+make main_static
+mkdir -p build
+make -C collatz collatz_static
+mkdir -p build
+gcc -Wall -o build/collatz_static -c collatz.c
+ar rcs build/libcollatz_static.a build/collatz_static
+gcc -Wall -o build/main_static main_static.c collatz/build/libcollatz_static.a
+make main_shared
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -Lcollatz/build main_shared.c -lcollatz_shared -Wl,-rpath,@loader_path/../collatz/build -o build/main_shared
+make main_dynamic_loaded
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -o build/main_dynamic_loaded main_dynamic_loaded.c -ldl
+filipmalejki@dhcp-9-175-159-218 lab1 % make shared
+./build/main_shared
+5
+7
+filipmalejki@dhcp-9-175-159-218 lab1 % git add . 
+filipmalejki@dhcp-9-175-159-218 lab1 % make clean 
+rm -rf build
+make -C collatz clean
+rm -rf build
+filipmalejki@dhcp-9-175-159-218 lab1 % make 
+make main_static
+mkdir -p build
+make -C collatz collatz_static
+mkdir -p build
+gcc -Wall -o build/collatz_static -c collatz.c
+ar rcs build/libcollatz_static.a build/collatz_static
+gcc -Wall -o build/main_static main_static.c collatz/build/libcollatz_static.a
+make main_shared
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -Lcollatz/build main_shared.c -lcollatz_shared -Wl,-rpath,@loader_path/../collatz/build -o build/main_shared
+make main_dynamic_loaded
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -o build/main_dynamic_loaded main_dynamic_loaded.c -ldl
+filipmalejki@dhcp-9-175-159-218 lab1 % make static
+./build/main_static
+5
+7
+filipmalejki@dhcp-9-175-159-218 lab1 % make shared
+./build/main_shared
+5
+7
+filipmalejki@dhcp-9-175-159-218 lab1 % make dynamic
+./build/main_dynamic_loaded
+5
+7
+filipmalejki@dhcp-9-175-159-218 lab1 % make all  
+make main_static
+mkdir -p build
+make -C collatz collatz_static
+mkdir -p build
+gcc -Wall -o build/collatz_static -c collatz.c
+ar rcs build/libcollatz_static.a build/collatz_static
+gcc -Wall -o build/main_static main_static.c collatz/build/libcollatz_static.a
+make main_shared
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -Lcollatz/build main_shared.c -lcollatz_shared -Wl,-rpath,@loader_path/../collatz/build -o build/main_shared
+make main_dynamic_loaded
+mkdir -p build
+make collatz_shared -C collatz
+mkdir -p build
+gcc -Wall -fPIC -o build/collatz_shared.o -c collatz.c
+gcc -shared -Wl,-install_name,@rpath/libcollatz_shared.so -o build/libcollatz_shared.so build/collatz_shared.o
+gcc -Wall -o build/main_dynamic_loaded main_dynamic_loaded.c -ldl
+filipmalejki@dhcp-9-175-159-218 lab1 % make clean
+rm -rf build
+make -C collatz clean
+rm -rf build

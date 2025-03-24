@@ -1,0 +1,44 @@
+filipmalejki@dhcp-9-175-159-218 lab2 % make test
+gcc flipper.c -o flipper
+tar -xvzf art.tgz
+x art/
+x art/notsure.txt
+x art/pikachu.txt
+x art/zmylka.jpg
+x art/isthisprogramming.txt
+./flipper art output
+filipmalejki@dhcp-9-175-159-218 lab2 % make clean
+
+rm -rf output flipper art
+filipmalejki@dhcp-9-175-159-218 lab2 % make unpac
+k
+tar -xvzf art.tgz
+x art/
+x art/notsure.txt
+x art/pikachu.txt
+x art/zmylka.jpg
+x art/isthisprogramming.txt
+filipmalejki@dhcp-9-175-159-218 lab2 % make flipp
+er
+gcc flipper.c -o flipper
+filipmalejki@dhcp-9-175-159-218 lab2 % make test
+gcc flipper.c -o flipper
+tar -xvzf art.tgz
+x art/
+x art/notsure.txt
+x art/pikachu.txt
+x art/zmylka.jpg
+x art/isthisprogramming.txt
+./flipper art output
+filipmalejki@dhcp-9-175-159-218 lab2 % make clean
+
+rm -rf output flipper art
+filipmalejki@dhcp-9-175-159-218 lab2 % make test
+gcc flipper.c -o flipper
+tar -xvzf art.tgz
+x art/
+x art/notsure.txt
+x art/pikachu.txt
+x art/zmylka.jpg
+x art/isthisprogramming.txt
+./flipper art output
