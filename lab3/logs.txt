@@ -1,0 +1,74 @@
+filipmalejki@dhcp-9-175-159-218 ex-0 % make processes
+mkdir -p build
+gcc -Wall -o build/processes processes.c
+filipmalejki@dhcp-9-175-159-218 ex-0 % make test
+mkdir -p build
+gcc -Wall -o build/processes processes.c
+./build/processes 10
+parent pid = 46503,  child pid = 46504
+parent pid = 46503,  child pid = 46505
+parent pid = 46503,  child pid = 46507
+parent pid = 46503,  child pid = 46508
+parent pid = 46503,  child pid = 46509
+parent pid = 46503,  child pid = 46510
+parent pid = 46503,  child pid = 46511
+parent pid = 46503,  child pid = 46512
+parent pid = 46503,  child pid = 46513
+parent pid = 46503,  child pid = 46514
+10
+filipmalejki@dhcp-9-175-159-218 ex-0 % make clean
+rm -rf build
+filipmalejki@dhcp-9-175-159-218 ex-0 % make test
+mkdir -p build
+gcc -Wall -o build/processes processes.c
+./build/processes 10
+parent pid = 46576,  child pid = 46577
+parent pid = 46576,  child pid = 46578
+parent pid = 46576,  child pid = 46579
+parent pid = 46576,  child pid = 46580
+parent pid = 46576,  child pid = 46581
+parent pid = 46576,  child pid = 46582
+parent pid = 46576,  child pid = 46583
+parent pid = 46576,  child pid = 46584
+parent pid = 46576,  child pid = 46585
+parent pid = 46576,  child pid = 46586
+10
+filipmalejki@dhcp-9-175-159-218 ex-0 % cd ..
+filipmalejki@dhcp-9-175-159-218 lab3 % cd ex-1 
+filipmalejki@dhcp-9-175-159-218 ex-1 % make parent_child
+mkdir -p build
+gcc  -o build/parent_child parent_child.c
+filipmalejki@dhcp-9-175-159-218 ex-1 % make directory
+mkdir -p build
+gcc  -o build/parent_child parent_child.c
+mkdir -p ./build/dummy_directory
+filipmalejki@dhcp-9-175-159-218 ex-1 % make test
+mkdir -p build
+gcc  -o build/parent_child parent_child.c
+mkdir -p ./build/dummy_directory
+./build/parent_child ./build/dummy_directory
+program name: ./build/parent_child
+child process
+child pid = 46845, parent pid = 46844
+child's local = 1, child's global = 1
+a.c     b.c     c.c
+parent process
+parent's pid = 46844, child's pid = 46845
+child exit code: 0
+parent local = 0, parent global = 0
+filipmalejki@dhcp-9-175-159-218 ex-1 % make clean
+rm -rf build
+filipmalejki@dhcp-9-175-159-218 ex-1 % make test
+mkdir -p build
+gcc  -o build/parent_child parent_child.c
+mkdir -p ./build/dummy_directory
+./build/parent_child ./build/dummy_directory
+program name: ./build/parent_child
+child process
+child pid = 46927, parent pid = 46925
+child's local = 1, child's global = 1
+a.c     b.c     c.c
+parent process
+parent's pid = 46925, child's pid = 46927
+child exit code: 0
+parent local = 0, parent global = 0

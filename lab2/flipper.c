@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define MAX_LINE 1024
+#define MAX_LINE 128
 
 int is_text_file(const char *filename){
     const char *ext = strrchr(filename,'.');
@@ -74,7 +74,7 @@ void process_directory(const char *src_dir, const char *dest_dir) {
     while ((entry = readdir(dir)) != NULL) {
         //checking if regular and then if text file (log, txt, csv)
         if (entry->d_type == DT_REG && is_text_file(entry->d_name)) {
-            char src_path[1024], dest_path[1024];
+            char src_path[MAX_LINE], dest_path[MAX_LINE];
             
             snprintf(src_path, sizeof(src_path), "%s/%s", src_dir, entry->d_name);
             snprintf(dest_path, sizeof(dest_path), "%s/%s", dest_dir, entry->d_name);
