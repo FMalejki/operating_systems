@@ -1,0 +1,39 @@
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 3
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 1
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 4
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 3
+Sender: received confirmation from catcher.
+malejki@Malejki:~/operating_systems/lab4/ex-1$ ./sender 818928 5
+
+
+./catcher
+Catcher PID: 818928
+Received mode 1 command 1 times
+1
+2
+3
+4
+5
+6
+Received mode 1 command 2 times
+Received mode 1 command 3 times
+Received mode 1 command 4 times
+Received mode 1 command 5 times
+Received mode 1 command 6 times
+Received mode 1 command 7 times
+Catcher will now print on Ctrl+C
+Catcher will ignore Ctrl+C
+Catcher shutting down.
