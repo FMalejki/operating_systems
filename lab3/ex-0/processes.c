@@ -16,12 +16,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    int counter = 0;
     for (int i = 0; i < n; i++) {
         pid_t pid = fork();
+        counter++;
         if (pid < 0) {
+            printf("%d\n", counter-1);
             perror("fork"); //fork error
             return 1;
-        }
+        } 
         if (pid == 0) {
             printf("parent pid = %d,  child pid = %d\n", getppid(), getpid());
             return 0;
