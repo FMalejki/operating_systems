@@ -9,7 +9,7 @@ volatile sig_atomic_t mode = 0;
 volatile sig_atomic_t sender_pid = 0;
 volatile sig_atomic_t got_signal = 0;
 
-void print_mode1_summary() {
+void mode_1_behaviour() {
     printf("Received mode 1 command %d times\n", received_count);
 }
 
@@ -49,7 +49,7 @@ int main() {
 
             if (mode == 1) {
                 received_count++;
-                print_mode1_summary();
+                mode_1_behaviour();
             } else if (mode == 2) {
                 for (int i = 1;; i++) {
                     printf("%d\n", i);
