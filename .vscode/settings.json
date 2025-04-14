@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "dir.h": "c",
+        "stdio.h": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "array": "c",
+        "deque": "c",
+        "initializer_list": "c",
+        "ios": "c",
+        "string": "c",
+        "string_view": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "stdlib.h": "c",
+        "fcntl.h": "c"
+    }
+}
