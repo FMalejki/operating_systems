@@ -1,80 +1,115 @@
-#include <printf.h>
-#include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/time.h>
 #include <math.h>
 
 double start = 0.0;
 double end = 1.0;
 
-double f(double x){
-    return 4.0/(x*x + 1.0);
+double f(double x) {
+    return 4.0 / (x * x + 1.0);
 }
 
-double calculate_integral(double range_start, double range_end, double (*fun)(double), double width, unsigned long long number_of_intervals){
-    if(range_end - range_start < width)
-        return fun((width + range_end)/ 2.0)*(range_end - range_start);
-
+double calculate_integral(double range_start, double range_end, double (*fun)(double), double width) {
     double sum = 0.0;
-    for(unsigned long long i = 0; i < number_of_intervals; i++){
-        sum += fun((range_start + width/2.0));
-        range_start += width;
+    double x = range_start + width / 2.0;
+    while (x < range_end) {
+        sum += fun(x);
+        x += width;
     }
-
     return sum * width;
 }
 
-int main(int argc, char** argv){
-    if(argc != 3){
-        perror("error");
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        printf("Bad Usage");
         return 1;
     }
+
     double width = strtod(argv[1], NULL);
-    long procnum = strtol(argv[2], NULL, 10);
+    int max_procnum = (int)strtol(argv[2], NULL, 10);
 
-    if(ceil((end - start)/width) < procnum) {
-        printf("To much processes needed for given interval range");
-        return -1;
+    if (width <= 0 || max_procnum <= 0) {
+        printf("Invalid input parameters.\n");
+        return 1;
     }
 
-    unsigned long long total_intervals_count = (unsigned long long)ceil((double)(end - start)/width);
-    unsigned long long intervals_per_process = total_intervals_count/procnum;
+    unsigned long long total_intervals_count = (unsigned long long)ceil((end - start) / width);
 
-    double interval_start = start;
-    double interval_stop = end;
+    printf("width = %lf\n", width);
+    printf("total intervals = %llu\n", total_intervals_count);
 
-    int pipes_fd[procnum][2];
-
-    for(int i = 0; i < procnum; i++){
-        if( end < interval_start + intervals_per_process*width){
-            interval_stop = end;
-        } else {
-            interval_stop = interval_start + intervals_per_process*width;
+    for (int procnum = 1; procnum <= max_procnum; procnum++) {
+        if (procnum > total_intervals_count) {
+            printf("Skippeing procnum = %d, too many processes.\n", procnum);
+            continue;
         }
-        pipe(pipes_fd[i]);
-        pid_t pid = fork();
-        if(pid == 0){
+
+        int pipes_fd[procnum][2];
+        double interval_start = start;
+        double interval_stop = end;
+        unsigned long long intervals_per_process = total_intervals_count / procnum;
+        unsigned long long extra_intervals = total_intervals_count % procnum;
+
+        struct timeval t_start, t_end;
+        gettimeofday(&t_start, NULL);
+
+        for (int i = 0; i < procnum; i++) {
+            unsigned long long intervals_for_this_process = intervals_per_process;
+            if (i < extra_intervals) {
+                intervals_for_this_process += 1;
+            }
+
+            double process_interval_start = interval_start;
+            double process_interval_end = interval_start + intervals_for_this_process * width;
+            if (process_interval_end > end) {
+                process_interval_end = end;
+            }
+
+            if (pipe(pipes_fd[i]) == -1) {
+                perror("pipe");
+                exit(1);
+            }
+
+            pid_t pid = fork();
+            if (pid < 0) {
+                perror("fork");
+                exit(1);
+            }
+
+            if (pid == 0) {
+                close(pipes_fd[i][0]);
+                double integral_result = calculate_integral(process_interval_start, process_interval_end, f, width);
+                write(pipes_fd[i][1], &integral_result, sizeof(integral_result));
+                close(pipes_fd[i][1]);
+                exit(0);
+            }
+            close(pipes_fd[i][1]);
+            interval_start = process_interval_end;
+        }
+
+        double sum = 0.0;
+        for (int i = 0; i < procnum; i++) {
+            double integral_result;
+            read(pipes_fd[i][0], &integral_result, sizeof(integral_result));
+            sum += integral_result;
             close(pipes_fd[i][0]);
-            double integral_result = calculate_integral(interval_start, interval_stop, f, width, intervals_per_process);
-            write(pipes_fd[i][1], &integral_result, sizeof(integral_result));
-            exit(0);
         }
-        close(pipes_fd[i][1]);
-        interval_start = interval_stop;
 
+        for (int i = 0; i < procnum; i++) {
+            wait(NULL);
+        }
+
+        gettimeofday(&t_end, NULL);
+
+        double elapsed_time = (t_end.tv_sec - t_start.tv_sec) * 1000.0;
+        elapsed_time += (t_end.tv_usec - t_start.tv_usec) / 1000.0; 
+
+        printf("Processes: %d\tResult: %.15lf\tTime: %.3lf ms\n", procnum, sum, elapsed_time);
     }
 
-    double sum = 0.0;
-    for(int i = 0; i < procnum; i++){
-        double integral_results;
-        read(pipes_fd[i][0], &integral_results, sizeof(integral_results));
-        sum += integral_results;
-    }
-
-    printf("total result: %lf\n", sum);
     return 0;
 }
