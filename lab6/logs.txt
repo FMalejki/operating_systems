@@ -1,0 +1,138 @@
+server.c:
+
+filipmalejki@MacBook-Pro-Filip system_v % make test_ser
+ver
+rm -rf /dev/mqueue/*
+mkdir -p build
+gcc -Wall server.c -o build/server
+./build/server
+New client connected with id: 0
+New client connected with id: 1
+
+************************************************
+
+1. client.c:
+filipmalejki@dhcp-9-175-158-75 system_v % make test_cli
+ent
+mkdir -p build
+gcc -Wall client.c -o build/client
+./build/client
+Received assigned ID: 0
+Enter message: 
+2
+Enter message: 
+2
+Enter message: 
+2
+Enter message: 
+1
+Enter message: 
+3
+Enter message: 
+3
+Enter message: 
+4
+Enter message: 
+1
+Enter message: 
+4
+Enter message: 
+2
+Enter message: 
+1
+Enter message: 
+2
+Enter message: 
+3
+Enter message: 
+4
+Enter message: 
+5
+Enter message: 
+1
+Enter message: 
+3
+Enter message: 
+4
+Enter message: 
+3
+Enter message: 
+2
+Enter message: 
+4
+Enter message: 
+4
+Enter message: 
+3
+Enter message: 
+4
+Enter message: 
+5
+Enter message: 
+6
+Enter message: 
+6
+Enter message: 
+4
+Enter message: 
+3
+Enter message: 
+3
+Enter message: 
+5
+Enter message: 
+Received from id 1: 3
+Received from id 1: 3
+Received from id 1: 2
+Received from id 1: 3
+1
+Enter message: 
+2
+Enter message: 
+3
+Enter message: 
+
+************************************************
+
+2. client.c:
+
+filipmalejki@dhcp-9-175-158-75 system_v % make test_client
+mkdir -p build
+gcc -Wall client.c -o build/client
+./build/client
+Received assigned ID: 1
+Enter message: 
+Received from id 0: 4
+Received from id 0: 2
+Received from id 0: 1
+Received from id 0: 2
+Received from id 0: 3
+Received from id 0: 4
+Received from id 0: 5
+Received from id 0: 1
+Received from id 0: 3
+Received from id 0: 4
+Received from id 0: 3
+Received from id 0: 2
+Received from id 0: 4
+Received from id 0: 4
+Received from id 0: 3
+Received from id 0: 4
+Received from id 0: 5
+Received from id 0: 6
+Received from id 0: 6
+Received from id 0: 4
+Received from id 0: 3
+Received from id 0: 3
+Received from id 0: 5
+3
+Enter message: 
+3
+Enter message: 
+2
+Enter message: 
+3
+Enter message: 
+Received from id 0: 1
+Received from id 0: 2
+Received from id 0: 3
