@@ -8,7 +8,7 @@ typedef struct {
     int thread_id;
     int num_threads;
     double width;
-    double *results; //shared space ptr
+    double *outputs; //shared space ptr
 } ThreadData;
 
 double func(double x) {
@@ -34,7 +34,7 @@ void* calculate_integral(void* arg) {
         local_sum += func(x) * width;
     }
 
-    data->results[tid] = local_sum;
+    data->outputs[tid] = local_sum;
     return NULL;
 }
 
@@ -48,16 +48,16 @@ int main(int argc, char* argv[]) {
     int num_threads = atoi(argv[2]);
 
     pthread_t threads[num_threads];
-    ThreadData thread_data[num_threads];
-    double* results = malloc(num_threads * sizeof(double));
+    ThreadData data[num_threads];
+    double* outputs = malloc(num_threads * sizeof(double));
 
     // thread init
     for (int i = 0; i < num_threads; i++) {
-        thread_data[i].thread_id = i;
-        thread_data[i].num_threads = num_threads;
-        thread_data[i].width = width;
-        thread_data[i].results = results;
-        pthread_create(&threads[i], NULL, calculate_integral, &thread_data[i]);
+        data[i].thread_id = i;
+        data[i].num_threads = num_threads;
+        data[i].width = width;
+        data[i].outputs = outputs;
+        pthread_create(&threads[i], NULL, calculate_integral, &data[i]);
     }
 
     // wait to end threads
@@ -68,11 +68,11 @@ int main(int argc, char* argv[]) {
     //adding
     double total = 0.0;
     for (int i = 0; i < num_threads; i++) {
-        total += results[i];
+        total += outputs[i];
     }
 
     printf("Wartość przybliżona całki: %.10f\n", total);
 
-    free(results);
+    free(outputs);
     return 0;
 }
