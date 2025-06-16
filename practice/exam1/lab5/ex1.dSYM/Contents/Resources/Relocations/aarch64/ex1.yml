@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/filipmalejki/Documents/Studies/Operating_Systems/practice/exam1/lab5/ex1'
+relocations:     []
+...
