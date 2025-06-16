@@ -138,6 +138,7 @@ int main() {
         }
 
         msgctl(client_qid, IPC_RMID, NULL);
+        exit(0);
     }
 
     return 0;
