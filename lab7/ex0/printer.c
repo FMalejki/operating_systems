@@ -75,7 +75,6 @@ void *printer(void *arg) {
             fflush(stdout);
             sleep(1);
         }
-        putchar('\n');
         fflush(stdout);
         //sem_post(&queue->print_mutex);
     }
